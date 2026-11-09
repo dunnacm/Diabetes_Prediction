@@ -31,7 +31,7 @@ python -m pip install -r requirements.txt
 python -m jupyterlab
 ```
 
-Place the authorized, exact prepared CSV at `data/raw/NHANES_age_prediction.csv`, then open `notebooks/Final.ipynb`, restart the kernel and run all cells in order. The loader stops with a clear message if the data are missing and checks required columns. Raw data remain ignored by Git.
+Place the authorized, exact prepared CSV at `data/raw/NHANES_age_prediction.csv`, then open `notebooks/Final.ipynb` and restart the kernel. With core requirements, run through the permutation-importance section. For a complete run including the optional SHAP section, first install `requirements-interpretation.txt`, then run all cells in order. The loader stops with a clear message if the data are missing and checks required columns. Raw data remain ignored by Git.
 
 The notebook's core model comparison does not require SHAP. To use the optional interpretation section, also install `requirements-interpretation.txt`. Complexity analysis was retained in the archived original only; it is not a necessary preprocessing or evaluation step.
 
