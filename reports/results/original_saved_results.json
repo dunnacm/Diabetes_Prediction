@@ -1,0 +1,77 @@
+{
+  "source_repository": "https://github.com/bpickett14/Diabetes_Prediction",
+  "source_commit": "234890fa232b034e06b6b90bd132bc1d3eaf5a09",
+  "source_notebook_blob": "9fc0940ea480e8881b18c1ba9c255bc7dfb2f5d0",
+  "status": "Transcribed from original saved notebook text outputs. Arithmetic audit only; no fresh training.",
+  "class_counts": {
+    "0": 2199,
+    "1": 79
+  },
+  "test_counts": {
+    "0": 440,
+    "1": 16
+  },
+  "matrix_order": "rows actual [0,1], columns predicted [0,1]",
+  "models": [
+    {
+      "name": "Baseline logistic regression",
+      "source_cell_zero_based": 20,
+      "confusion_matrix": [
+        [
+          439,
+          1
+        ],
+        [
+          16,
+          0
+        ]
+      ],
+      "notebook_reported_roc_auc": 0.7464
+    },
+    {
+      "name": "Baseline random forest",
+      "source_cell_zero_based": 20,
+      "confusion_matrix": [
+        [
+          439,
+          1
+        ],
+        [
+          16,
+          0
+        ]
+      ],
+      "notebook_reported_roc_auc": 0.6614
+    },
+    {
+      "name": "Tuned class-weighted logistic regression",
+      "source_cell_zero_based": 22,
+      "confusion_matrix": [
+        [
+          345,
+          95
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "notebook_reported_roc_auc": 0.7737
+    },
+    {
+      "name": "SMOTE + undersampling + logistic regression",
+      "source_cell_zero_based": 24,
+      "confusion_matrix": [
+        [
+          337,
+          103
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "notebook_reported_roc_auc": 0.7705
+    }
+  ]
+}

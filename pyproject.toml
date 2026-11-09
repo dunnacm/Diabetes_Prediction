@@ -1,32 +1,11 @@
-[build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
-
 [project]
-name = "AgePrediction"
-version = "0.0.1"
-description = "Final project using diabetes dataset"
-authors = [
-  { name = "Brenna" },
-]
-
+name = "diabetes-status-classification"
+version = "0.1.0"
+description = "Academic NHANES survey-status classification and evaluation"
 readme = "README.md"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    
-]
-requires-python = "~=3.1.0"
-
+requires-python = ">=3.10"
+authors = [{name = "Brenna"}, {name = "Dunn Cardona"}]
 
 [tool.ruff]
 line-length = 99
-src = ["AgePrediction"]
-include = ["pyproject.toml", "AgePrediction/**/*.py"]
-
-[tool.ruff.lint]
-extend-select = ["I"]  # Add import sorting
-
-[tool.ruff.lint.isort]
-known-first-party = ["AgePrediction"]
-force-sort-within-sections = true
-
+target-version = "py310"

@@ -189,3 +189,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# New local analysis outputs; preserve original committed figures
+reports/generated/
