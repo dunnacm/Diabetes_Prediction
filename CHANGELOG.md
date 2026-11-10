@@ -1,5 +1,14 @@
 # Changes
 
+## November 10 2026 reproducibility audit
+
+- Recovered candidate input was supplied locally; recorded SHA-256, schema, target codes, age scope and unresolved sample-selection provenance. Participant-level data remain outside the repository.
+- Added a checksum-aware portable CLI and small reusable workflow module. Explicit category types, fold-local imputation/scaling, one-hot encoding and SMOTENC replace dtype-based categories and ordinary-SMOTE interpolation in the current recommended path.
+- Compared 13 settings across three model families using training-only stratified CV. Added an always-negative reference, average precision and clearly qualified small-sample descriptive intervals.
+- Completed an actual isolated-environment run and saved aggregate results separately from historical evidence. The reused holdout is explicitly retrospective.
+- Added pinned reproduction dependencies and focused regression tests. Updated README, methods, findings, provenance, reproduction instructions and attribution.
+- Marked the prior revised notebook as exploratory; its full execution, permutation and SHAP remain unverified. Preserved original notebook bytes, original figures and original result JSON.
+
 ## November 9 2026 portfolio review
 
 - Replaced the template README with purpose, results, methods, tools, navigation, attribution and evidence limits.

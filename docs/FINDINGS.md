@@ -27,12 +27,20 @@ Glucose measurements are contemporaneous with the survey-derived label. Their us
 
 ## Limits and next research steps
 
-1. Recover the exact input file and document its origin, selection criteria and checksum. A similarly named NHANES download is not necessarily the same prepared subset.
-2. Rerun the revised notebook from a clean environment. Compare results with the original after the PAQ605 refused/unknown handling correction.
+### New executed evidence
+
+The November 10 CLI run selected balanced logistic regression with C=10 by training-only CV. On the reused holdout, it again detects 10 of 16 positives, with 95 false positives. ROC-AUC is 0.77372 and average precision is 0.10865; the holdout positive fraction is 16/456 (0.03509). Average precision is based on ranked scores and is not trapezoidal PR-AUC. These are new run results, separate from the saved historical outputs.
+
+Descriptive 95% Wilson intervals are 38.6%–81.5% for recall and 5.3%–16.6% for precision. They illustrate denominator sensitivity, not unbiased population uncertainty: survey design, model-selection variability and prior test reuse are not accounted for. Most positives are borderline responses, so “detecting diabetes” without that qualification overstates the modeled task.
+
+### Remaining work
+
+1. Reconstruct the prepared subset's selection and extraction. The recovered candidate's checksum, first-record agreement and schema are documented; exact identity with the original remains unproven.
+2. The new CLI completed in an isolated environment. A clean execution of the earlier exploratory notebook and optional SHAP remains unverified.
 3. Examine the decision to combine borderline and yes responses; do not present it as an official clinical threshold.
 4. Choose model, thresholds and metrics within training/validation data before consulting a genuinely untouched test set. The original discussion mentions test-set model selection, which limits claims of unbiased final evaluation.
 5. Report uncertainty, calibrate probabilities if probability use is intended, and consider precision-recall curves for the rare positive class.
-6. Reconsider ordinary SMOTE for coded categorical fields; interpolation can create values without survey meaning. Compare suitable categorical-aware alternatives inside validation.
+6. The new CLI compares categorical-aware SMOTENC inside training validation. Its CV result did not displace the weighted logistic model. That does not establish general superiority; the old ordinary-SMOTE experiment remains historical.
 7. Address NHANES survey design, weights and subset selection before population-level inference. External validation would be a separate study.
 
 No medical recommendations are made by this project.

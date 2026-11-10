@@ -6,4 +6,6 @@ The fork preserves the original history and the original executed notebook at `n
 
 The November 2026 documentation, notebook repairs and audit utilities were prepared with AI assistance at Dunn's request. They are later portfolio maintenance, not additional work claimed to have been independently completed during the course. The original project's AI-assistance scope and each member's exact implementation contribution are not established by this review.
 
+The November 10 reproducible runner, categorical-aware resampling comparison, additional tests and revised documentation were also prepared with AI assistance. New aggregate results come from an actual local run on the recovered candidate input. This maintenance does not change group attribution or establish unaided proficiency, original authorship of every line, independent validation or clinical readiness.
+
 The project structure uses the Cookiecutter Data Science template, as acknowledged in the original README. Source data are described as NHANES; consult the CDC documentation linked in METHODS. No new software license is asserted on behalf of the original contributors, and this fork does not change their rights.

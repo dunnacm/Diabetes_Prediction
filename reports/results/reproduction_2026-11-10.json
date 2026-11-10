@@ -1,0 +1,162 @@
+{
+  "analysis_version": "2026-11-10-retrospective-v1",
+  "input_filename": "NHANES_age_prediction.csv",
+  "input_sha256": "a5e588ef5d015349b2656b2905cd2ac9603381643e188a5587a58cf5f972354d",
+  "quality": {
+    "input_rows": 2278,
+    "labeled_rows": 2278,
+    "excluded_target_rows": 0,
+    "target_counts": {
+      "0": 2199,
+      "1": 79
+    },
+    "recorded_diq010_counts": {
+      "1.0": 21,
+      "2.0": 2199,
+      "3.0": 58
+    },
+    "missing_by_input_column": {
+      "SEQN": 0,
+      "age_group": 0,
+      "RIDAGEYR": 0,
+      "RIAGENDR": 0,
+      "PAQ605": 0,
+      "BMXBMI": 0,
+      "LBXGLU": 0,
+      "DIQ010": 0,
+      "LBXGLT": 0,
+      "LBXIN": 0
+    },
+    "duplicate_identifiers": 0,
+    "activity_missing_after_recode": 1,
+    "age_range_years": [
+      12.0,
+      80.0
+    ]
+  },
+  "features": [
+    "RIDAGEYR",
+    "BMXBMI",
+    "LBXGLU",
+    "LBXGLT",
+    "RIAGENDR",
+    "PAQ605"
+  ],
+  "train_rows": 1822,
+  "holdout_rows": 456,
+  "train_class_counts": {
+    "0": 1759,
+    "1": 63
+  },
+  "holdout_class_counts": {
+    "0": 440,
+    "1": 16
+  },
+  "split_seed": 1117,
+  "cv_seed": 42,
+  "folds": 5,
+  "primary_metric": "balanced_accuracy",
+  "threshold": 0.5,
+  "comparisons_training_only": [
+    {
+      "family": "logistic",
+      "best_parameters": {
+        "classifier__C": 10.0,
+        "classifier__class_weight": "balanced"
+      },
+      "mean_cv_balanced_accuracy": 0.7699762043512044,
+      "sd_across_folds": 0.10149601333965708,
+      "candidates": 6
+    },
+    {
+      "family": "forest",
+      "best_parameters": {
+        "classifier__class_weight": "balanced",
+        "classifier__max_depth": 8
+      },
+      "mean_cv_balanced_accuracy": 0.575919450919451,
+      "sd_across_folds": 0.017125090228814803,
+      "candidates": 4
+    },
+    {
+      "family": "smotenc_logistic",
+      "best_parameters": {
+        "classifier__C": 0.1
+      },
+      "mean_cv_balanced_accuracy": 0.7347270784770786,
+      "sd_across_folds": 0.08741585959029187,
+      "candidates": 3
+    }
+  ],
+  "selected_family": "logistic",
+  "holdout_selected": {
+    "confusion_matrix": [
+      [
+        345,
+        95
+      ],
+      [
+        6,
+        10
+      ]
+    ],
+    "accuracy": 0.7785087719298246,
+    "balanced_accuracy": 0.7045454545454546,
+    "positive_recall": 0.625,
+    "positive_precision": 0.09523809523809523,
+    "positive_f1": 0.1652892561983471,
+    "macro_f1": 0.5188013916895655,
+    "g_mean": 0.7000405832391563,
+    "roc_auc": 0.7737215909090909,
+    "average_precision": 0.10864649364644434,
+    "recall_wilson95_descriptive": [
+      0.38641040545502714,
+      0.8151876744113636
+    ],
+    "precision_wilson95_descriptive": [
+      0.0525563098634332,
+      0.1664912762220367
+    ]
+  },
+  "holdout_always_negative": {
+    "confusion_matrix": [
+      [
+        440,
+        0
+      ],
+      [
+        16,
+        0
+      ]
+    ],
+    "accuracy": 0.9649122807017544,
+    "balanced_accuracy": 0.5,
+    "positive_recall": 0.0,
+    "positive_precision": 0.0,
+    "positive_f1": 0.0,
+    "macro_f1": 0.49107142857142855,
+    "g_mean": 0.0,
+    "roc_auc": 0.5,
+    "average_precision": 0.03508771929824561,
+    "recall_wilson95_descriptive": [
+      0.0,
+      0.1936076805344365
+    ],
+    "precision_wilson95_descriptive": null
+  },
+  "limitations": [
+    "Retrospective reuse of previously inspected holdout, not an untouched confirmation.",
+    "CV winner scores are selection scores, not an unbiased performance estimate.",
+    "Small positive sample; descriptive Wilson intervals ignore selection and survey design.",
+    "No survey weights/PSU/strata; prepared-subset selection not reconstructed.",
+    "Target combines yes and borderline; not future onset, clinical diagnosis or population inference."
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "imbalanced-learn": "0.14.2",
+    "scipy": "1.18.1"
+  }
+}

@@ -10,7 +10,9 @@ An academic group project from **Data Mining and Text Analytics (MATH 3310), Fal
 - **Understand the analysis:** [Methods and data dictionary](docs/METHODS.md).
 - **Run or inspect the work:** [Reproduction guide](docs/REPRODUCIBILITY.md).
 - **See the original evidence:** [Original executed notebook](notebooks/archive/Final_original.ipynb).
-- **Inspect the revised code:** [Revised notebook](notebooks/Final.ipynb).
+- **Run the current comparison:** [Reproduction command](docs/REPRODUCIBILITY.md) and [runner](scripts/reproduce_analysis.py).
+- **Inspect the earlier exploratory revision:** [Revised notebook](notebooks/Final.ipynb), with execution limitations.
+- **Trace the recovered input:** [Data provenance](docs/DATA_PROVENANCE.md).
 - **Credit and revision history:** [Attribution](docs/ATTRIBUTION.md) and [changes](CHANGELOG.md).
 
 ## Purpose
@@ -32,6 +34,12 @@ The original notebook records 2,278 observations: 2,199 negatives and 79 positiv
 
 **Evidence status:** these figures are recalculated from confusion matrices saved in the original notebook, not from a new model run. The revised notebook has cleared outputs and changes to data handling; these historical figures must not be attributed to the revised code. [Exact values and provenance](reports/results/original_saved_results.json).
 
+## November 10, 2026 reproducibility check
+
+A new, checksum-recorded CLI run completed on the recovered 2,278-row input. Training-only cross-validation selected class-weighted logistic regression from 13 settings across logistic, random-forest and categorical-aware SMOTENC pipelines. Its retrospective holdout matrix is `[[345,95],[6,10]]`: 62.50% positive recall, 9.52% precision and 70.45% balanced accuracy. Average precision is 0.10865, compared with 0.03509 for the always-negative reference. [Full aggregate results](reports/results/reproduction_2026-11-10.json).
+
+The matching historical weighted-model matrix is evidence of consistency, not restored test independence. This holdout has been examined before. Of the 79 positive labels, 58 are borderline and 21 are yes; the sample includes ages 12–80. No clinical or future-onset conclusion follows.
+
 ## Approach and tools
 
 1. Define the outcome, check values and explore the class imbalance.
@@ -44,6 +52,6 @@ The original notebook records 2,278 observations: 2,199 negatives and 79 positiv
 
 ## Current status and limits
 
-The input `NHANES_age_prediction.csv` is **not included**. You can read the report and verify the arithmetic without it; training requires the exact prepared input. No external validation, clinical use, production deployment or population-weighted NHANES inference is established. Only 16 positive cases appear in the saved test set, so small changes in predictions have large effects on recall.
+The input `NHANES_age_prediction.csv` is **not included**. A local candidate was recovered and used for the documented new run; no original checksum establishes historical byte identity. You can read the report and verify historical arithmetic without it; training requires an authorized prepared input. No external validation, clinical use, production deployment or population-weighted NHANES inference is established. Only 16 positive cases appear in the holdout, so small changes in predictions have large effects on recall.
 
 This fork preserves the [original group repository](https://github.com/bpickett14/Diabetes_Prediction) and its commit history. The November 2026 review improves documentation, corrects identified code issues and adds auditable result checks. It does not claim sole authorship of the coursework or a newly validated model.

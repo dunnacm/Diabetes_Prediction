@@ -1,44 +1,43 @@
 # Reproduction guide
 
-## What works without the dataset
+## Check historical arithmetic without data or third-party packages
 
-From the repository root, using Python 3.10 or newer:
+From the repository root:
 
 ```bash
 python scripts/summarize_saved_results.py
-python -m unittest discover -s tests -v
+python -m unittest discover -s tests -p test_review.py -v
 ```
 
-These use only the standard library. Tests verify confusion-matrix calculations, distinguish macro F1 from positive F1, check survey-code handling, and compile every revised notebook code cell. They do not fit or validate a model.
+These seven checks recalculate historical confusion-matrix metrics, check survey-code handling and compile revised notebook cells. They do not fit a model.
 
-## Run the analysis when the original input is available
+## Run the current comparison
 
-Use Python 3.12 in a new environment. Windows PowerShell:
+The recommended reproducible entry point is `scripts/reproduce_analysis.py`. It replaces the exploratory notebook as the current model-comparison path. Python 3.12.14 on Windows was tested in a fresh isolated environment. The pinned reproduction requirements record the versions actually installed.
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python -m jupyterlab
+python -m pip install -r requirements-reproduction.txt
+python -m unittest discover -s tests -v
+python scripts/reproduce_analysis.py --data "PATH/TO/NHANES_age_prediction.csv" --expected-sha256 a5e588ef5d015349b2656b2905cd2ac9603381643e188a5587a58cf5f972354d
 ```
 
-macOS/Linux:
+On macOS/Linux, create the environment with `python3.12 -m venv .venv` and activate with `source .venv/bin/activate`; the subsequent Python commands are the same. Those platforms were not tested. Supply an authorized local input; see [provenance](DATA_PROVENANCE.md). The optional checksum argument verifies the recovered input used for the recorded run. Leave it out only when intentionally analyzing a different prepared input and documenting the change.
 
-```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python -m jupyterlab
-```
+By default, aggregate output goes to ignored `reports/generated/reproduction.json`. Use `--output PATH` to choose another destination. The script works when invoked by its absolute path from another working directory. It exports no participant rows or identifiers. Input and output paths may contain spaces.
 
-Place the authorized, exact prepared CSV at `data/raw/NHANES_age_prediction.csv`, then open `notebooks/Final.ipynb` and restart the kernel. With core requirements, run through the permutation-importance section. For a complete run including the optional SHAP section, first install `requirements-interpretation.txt`, then run all cells in order. The loader stops with a clear message if the data are missing and checks required columns. Raw data remain ignored by Git.
+## What was actually checked
 
-The notebook's core model comparison does not require SHAP. To use the optional interpretation section, also install `requirements-interpretation.txt`. Complexity analysis was retained in the archived original only; it is not a necessary preprocessing or evaluation step.
+- A fresh isolated environment was installed, then the current CLI completed on the recovered 2,278-row input.
+- The full test suite checks historical metrics and notebook syntax, unknown survey codes, missing-target exclusions, duplicate identifiers, training-only imputation, valid SMOTENC categories and descriptive interval arithmetic.
+- [The recorded run](../reports/results/reproduction_2026-11-10.json) contains the input checksum, schema-quality counts, split and CV seeds, training-only selection results, aggregate holdout results and package versions.
+- The original executed notebook and all original PNGs were hash-checked and preserved.
 
-## Validation status
+This is **retrospective reproducibility, not independent validation**. The same previously examined holdout is reused. No claim that the test set is newly untouched is made. The selected model and an always-negative reference are evaluated after training-only model selection; holdout results are not used to choose a candidate in this runner.
 
-The November 2026 revision passed local standard-library tests and Python syntax checks. A fresh installation of the modeling dependencies and a complete notebook run have **not** been verified. Requirements name the actual imported packages and fix the original invalid `matplotlib.pyplot` package entry; they are not a locked, reproduced environment.
+## Notebook and interpretation boundary
 
-The historical JSON and original executed notebook remain separate from the revised notebook, whose outputs were cleared. New predictions will differ after corrected survey-code handling. Do not relabel the historical table as a result of revised code.
+`notebooks/archive/Final_original.ipynb` is immutable historical evidence. `notebooks/Final.ipynb` is a revised exploratory notebook from the earlier review, with outputs cleared and an explicit current-status notice. It still includes the original ordinary-SMOTE comparison and repeated exploratory holdout use. Its code has been syntax checked, but neither a complete clean notebook execution nor the optional SHAP path has been verified. Its outputs must not be substituted for the recorded CLI results.
 
-Before making a new performance claim, record the input checksum, package versions, split and CV seeds, preprocessing choices and full outputs. Keep evaluation thresholds and model selection independent of the final test set. Do not upload participant-level data simply to make the notebook run.
+`requirements.txt` and `requirements-interpretation.txt` remain optional notebook dependencies; they are not the environment lock for the current runner. Permutation/SHAP outputs are not recomputed by the CLI. Their historical plots remain artifacts requiring the documented cautions, not new validated explanations. No model is approved for clinical use or deployment.
